@@ -168,7 +168,7 @@ button {
 }
 
 .home {
-  background: url(img/Gradient.png) 0 0/cover;
+  background: url(./img/Gradient.png) 0 0/cover;
   padding: 0 20px;
 }
 
