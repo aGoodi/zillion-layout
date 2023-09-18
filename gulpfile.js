@@ -8,7 +8,6 @@ var gulp = require('gulp'),
     autoprefixer = require('gulp-autoprefixer'),
     shorthand = require('gulp-shorthand'),
     cleancss = require('gulp-clean-css'),
-    imagecomp = require('compress-images'),
     clean = require('gulp-clean');
 
 function startwatch() {
@@ -56,21 +55,9 @@ function styles() {
 }
 
 async function images() {
-    imagecomp(
-        "src/img/**/*",
-        "dist/img/",
-        { compress_force: false, statistic: true, autoupdate: true },
-        false,
-        { jpg: { engine: "mozjpeg", command: ["-quality", "60"] } },
-        { png: { engine: "pngquant", command: ["--quality=20-50", "-o"] } },
-        { svg: { engine: "svgo", command: "--multipass" } },
-        { gif: { engine: "gifsicle", command: ["--colors", "64", "--use-col=web"] },},
-        function (err, completed) {
-          if (completed === true) {
-            browserSync.reload();
-          }
-        }
-    );
+    return src('src/img/**/*')
+    .pipe(dest('dist/img/'))
+    .pipe(browserSync.stream())
 }
 
 function cleanimg() {
